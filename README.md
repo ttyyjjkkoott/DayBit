@@ -11,3 +11,5 @@ Bitcoin $69,420
 30 days till 4th halving
 
 Run's each day at 9:00 AM CST using PythonAnywhere.com
+
+!["Script on PythonAnywhere.com to Run Bitcoin DayBit"](https://github.com/ttyyjjkkoott/DayBit/blob/main/PythonAnywhereDayBitScript.png)
