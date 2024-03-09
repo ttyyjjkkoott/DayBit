@@ -1,3 +1,4 @@
 # ignore environment file
 .env
 /dbvenv
+.DS_Store
