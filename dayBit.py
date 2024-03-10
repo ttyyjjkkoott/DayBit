@@ -11,7 +11,7 @@ import time
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables from .env
 load_dotenv()
 
 # Constants
@@ -33,9 +33,9 @@ def get_bitcoin_price():
     response = requests.get('https://api.coindesk.com/v1/bpi/currentprice/BTC.json')
     return response.json()['bpi']['USD']['rate_float']
 
-def compose_email(bitcoin_price, days_left):
+def compose_email(bitcoin_price, days_left, blocks_left):
     subject = "Bitcoin Update"
-    message_body = f"Bitcoin ${bitcoin_price:.2f}\n{days_left:.2f} days till 4th halving"
+    message_body = f"Bitcoin ${bitcoin_price:.2f}\n{blocks_left} blocks left\n{days_left:.2f} days till 4th halving"
     return subject, message_body
 
 def send_email(subject, message_body):
@@ -53,9 +53,9 @@ def send_email(subject, message_body):
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender_email, sender_password)
             server.send_message(msg)
-        print("Email sent successfully!")
+        print("Text sent successfully!")
     except Exception as e:
-        print(f"Error sending email: {e}")
+        print(f"Error sending text: {e}")
 
 def main():
     current_block_height = get_current_block_height()
@@ -64,7 +64,7 @@ def main():
     days_left = blocks_left / AVERAGE_BLOCKS_PER_DAY
     bitcoin_price = get_bitcoin_price()
 
-    subject, message_body = compose_email(bitcoin_price, days_left)
+    subject, message_body = compose_email(bitcoin_price, days_left, blocks_left)
     send_email(subject, message_body)
 
 if __name__ == "__main__":
